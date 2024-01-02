@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>마우스 드래깅으로 캔버스에 그림 그리기</title>
+</head>
+
+<body onload="init()">
+    <h3>마우스를 누른 채 드래깅하여 그림 그려 보세요</h3>
+    <hr>
+    <canvas id="myCanvas" style="background-color:aliceblue" width="400" height="300">
+    </canvas>
+    <br>
+    <button id="redBtn" style="background-color:red;">빨</button>
+    <button id="greenBtn" style="background-color:green;">초</button>
+    <button id="blueBtn" style="background-color:blue;">파</button>
+    <button id="purpleBtn" style="background-color:purple;">보</button>
+    <button id="yellowBtn" style="background-color:yellow;">노</button>
+    <input id="colorPicker" type="color">
+    <button id="thickerBtn">두껍게</button>
+    <button id="thinnerBtn">가늘게</button>
+    <input id="lineWidthSlider" type="range" min="1" max="20" value="2">
+    <button id="eraserBtn">지우개</button>
+    <button id="clearBtn">전체 지우기</button>
+
+    <script>
+        var canvas, context;
+        function init() {
+            canvas = document.getElementById("myCanvas");
+            context = canvas.getContext("2d");
+
+            context.lineWidth = 2; // 선 굵기 2
+            context.strokeStyle = "blue";
+
+            canvas.addEventListener("mousemove", function (e) { move(e) }, false);
+            canvas.addEventListener("mousedown", function (e) { down(e) }, false);
+            canvas.addEventListener("mouseup", function (e) { up(e) }, false);
+            canvas.addEventListener("mouseout", function (e) { out(e) }, false);
+
+            document.getElementById("redBtn").addEventListener("click", function () {context.strokeStyle="red"; context.globalCompositeOperation = "source-over";});
+            document.getElementById("greenBtn").addEventListener("click", function () {context.strokeStyle="green"; context.globalCompositeOperation = "source-over";});
+            document.getElementById("blueBtn").addEventListener("click", function () {context.strokeStyle="blue"; context.globalCompositeOperation = "source-over";});
+            document.getElementById("purpleBtn").addEventListener("click", function () {context.strokeStyle="purple"; context.globalCompositeOperation = "source-over";});
+            document.getElementById("yellowBtn").addEventListener("click", function () {context.strokeStyle="yellow"; context.globalCompositeOperation = "source-over";});
+            document.getElementById("colorPicker").addEventListener("change", function () {context.strokeStyle = this.value;});
+            document.getElementById("thickerBtn").addEventListener("click", function () {context.lineWidth += 2;});
+            document.getElementById("thinnerBtn").addEventListener("click", function () {context.lineWidth -= 2; if (context.lineWidth < 1) {context.lineWidth = 1;}});
+            document.getElementById("lineWidthSlider").addEventListener("change", function () {context.lineWidth = this.value;});
+            document.getElementById("eraserBtn").addEventListener("click", function () { context.globalCompositeOperation = "destination-out"; context.lineWidth = 10; });
+            document.getElementById("clearBtn").addEventListener("click", function () {context.clearRect (0, 0, canvas.width, canvas.height);});
+        }
+
+        var startX = 0, startY = 0;
+        var dragging = false;
+        function draw(curX, curY) {
+            context.beginPath();
+            context.moveTo(startX, startY);
+            context.lineTo(curX, curY);
+            context.stroke();
+        }
+        function down(e) { 
+            startX = e.offsetX; startY = e.offsetY; dragging = true;
+        }
+
+        function up(e) { dragging = false; }
+
+        function move(e) {
+            if (!dragging) return; 
+            var curX = e.offsetX, curY = e.offsetY;
+            draw(curX, curY);
+            startX = curX; startY = curY;
+        }
+
+        function out(e) { dragging = false; }
+    </script>
+</body>
+
+</html>

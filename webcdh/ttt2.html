@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>유수봉(202301001) - 로컬 스토리지 사용하기-2</title>
+</head>
+
+<body>
+    <h3>jsEx_04 : 로컬 스토리지 사용하기-2</h3>
+    <hr>
+    ▶학번 : <input id="sid" type="text" size="10">
+    ▶이름 : <input id="name" type="text" size="10"><br>
+    ▶전공 : <input id="major" type="text" size="10">
+    ▶교양 : <input id="culture" type="text" size="10"><br>
+    ▷합계 : <input id="total" type="text" style="background-color: lightgray; text-align:center;" size="10">
+    ▷평균 : <input id="average" type="text" style="background-color: lightgray; text-align:center;" size="10"><br>
+    <hr>
+    <button type="button" id="save" style="background-color: lightgreen; height: 50px; width: 80px"
+        onclick="store()">저장</button>
+    <button type="button" id="retrieve" style="background-color: yellow; height: 50px; width: 80px"
+        onclick="retrieve()">조회</button>
+    <button type="button" id="update" style="background-color:yellow; height: 50px; width: 80px"
+        onclick="update()">수정</button>
+    <button type="button" id="remove" style="background-color: yellow; height: 50px; width: 80px"
+        onclick="remove()">삭제</button>
+    <button type="button" id="init" style="background-color: lightgreen; height: 50px; width: 80px"
+        onclick="init()">초기화</button>
+    <button type="button" id="listGraph7" style="background-color: yellow; height: 50px; width: 80px"
+        onclick="listGraph7()">레이저 그래프</button>
+    <button type="button" id="listGraph6" style="background-color: yellow; height: 50px; width: 80px"
+        onclick="listGraph6()">버블 그래프</button>
+
+    <hr>
+    <button type="button" id="listAll" style="background-color: lightgreen; height: 50px; width: 80px"
+        onclick="listAll()">전체보기</button>
+    <button type="button" id="listSort" style="background-color: lightgreen; height: 50px; width: 80px"
+        onclick="listSort()">이름순</button>
+    <button type="button" id="listRank" style="background-color: yellow; height: 50px; width: 80px"
+        onclick="listRank()">성적순</button>
+    <button type="button" id="listGraph1" style="background-color: lightgreen; height: 50px; width: 80px"
+        onclick="listGraph1()">그래프-1</button>
+    <button type="button" id="listGraph2" style="background-color: yellow; height: 50px; width: 80px"
+        onclick="listGraph2()">그래프-2</button>
+    <button type="button" id="listGraph3" style="background-color: yellow; height: 50px; width: 80px"
+        onclick="listGraph3()">꺾은선 그래프</button>
+    <button type="button" id="listGraph4" style="background-color: yellow; height: 50px; width: 80px"
+        onclick="listGraph4()">원형 그래프</button>
+    <button type="button" id="listGraph5" style="background-color: yellow; height: 50px; width: 80px"
+        onclick="listGraph5()">면적 그래프</button>
+    
+    <hr>
+    <p id="result1"></p>
+    <p id="result2"></p>
+    <canvas id='graph' width='0' height='0' style='background-color:lightblue'>
+    </canvas>
+    <hr>
+
+    <script>
+        let sid = document.getElementById("sid");
+        let name = document.getElementById("name");
+        let major = document.getElementById("major");
+        let culture = document.getElementById("culture");
+        let total = document.getElementById("total");
+        let average = document.getElementById("average");
+
+        function store() {
+            
+
+
+            if (sid.value.length > 0) {
+                localStorage.setItem(sid.value, name.value + "," + major.value + "," + culture.value + "," +(parseInt(major.value) + parseInt(culture.value)) + "," + (parseInt(major.value) + parseInt(culture.value))/2);
+                result1.innerHTML = sid.value + " 의 성적 자료를 저장하였습니다.<hr>";
+            }
+            else {
+                alert("<확인> 입력값이 없습니다");
+            }
+            result2.innerHTML = "";
+        }
+        function retrieve() {
+            var val = localStorage.getItem(sid.value);
+            if (val == null)
+                alert("' " + sid.value + " ' 는 등록되어있지 않습니다.");
+            else {
+                name.value = val.split(',')[0];
+                major.value = val.split(',')[1];
+                culture.value = val.split(',')[2];
+                total.value = parseInt(val.split(',')[1]) + parseInt(val.split(',')[2]);
+                average.value = parseFloat(parseInt(total.value) / 2).toFixed(2);
+            }
+            result1.innerHTML = sid.value + " 의 성적 자료를 조회하였습니다.<hr>";
+            result2.innerHTML = "";
+        }
+        function update() {
+            if (localStorage.getItem(sid.value) !== null) {
+                localStorage.setItem(sid.value, name.value + "," + major.value + "," + culture.value + "," + (parseInt(major.value) + parseInt(culture.value)) + "," + (parseInt(major.value) + parseInt(culture.value)) / 2);
+                result1.innerHTML = sid.value + " 의 성적 자료를 수정하였습니다.<hr>";
+            } else {
+                alert("수정할 학번의 정보가 없습니다. 먼저 저장을 진행해주세요.");
+            }
+            result2.innerHTML = "";
+        }
+
+        function remove() {
+            if (sid.value.length > 0) {
+                localStorage.removeItem(sid.value);
+                result1.innerHTML = sid.value + " 의 성적 자료를 삭제하였습니다.<hr>";
+            }
+            else {
+                alert("<확인> 입력값이 없습니다");
+            }
+
+            result2.innerHTML = "";
+        }
+
+        function init() {
+            localStorage.clear();
+            localStorage.setItem("202301055","유수봉,95,81,176,88");
+            localStorage.setItem("202202044","나가요,84,92,176,88");
+            localStorage.setItem("202103033","오시오,73,93,166,83");
+            localStorage.setItem("202204022","어서요,62,94,156,78");
+            localStorage.setItem("202305011","마지막,51,85,136,68");
+
+            result1.innerHTML = "(웹 스토리지를 초기화 하였습니다)<hr>";
+            result2.innerHTML = "";
+        }
+
+        function listAll() {
+            var str = "<h3 align=center>(웹스토리지) 전체 보기</h3>";
+            str += "<table border=1>";
+            str += "<tr><th width=50>학번</th><th width=50 >이름</th><th width=50 align=center>전공</th><th width=50>교양</th><th width=50>합계</th><th width=50>평균</th><th width=50>석차</th></tr>"
+            for (N = 0; N < localStorage.length; N++) {
+                str += "<tr>";
+                str += "<td>" + localStorage.key(N) + "</td>";
+
+                item = localStorage.getItem(localStorage.key(N));
+                for (L = 0; L < item.split(',').length; L++) {
+                    str += "<td  align=center>" + item.split(',')[L] + "</td>";
+                }
+                str += "<tr>";
+            }
+            str += "<tfoot><tr><td colspan=7 align=center>작성자 : 최동혁(2018E7196)</td></tr></tfoot>";
+
+            str += "</table>";
+            result1.innerHTML = "(웹 스토이지) 전체 데이터를 출력하였습니다.<hr>";
+            result2.innerHTML = str;
+        }
+
+        function listSort() {
+            var str = "<h3 align=center>(웹스토리지) 학번순으로 출력하기</h3>";
+            str += "<table border=1>";
+            str += "<tr><th width=50>학번</th><th width=50 >이름</th><th width=50 align=center>전공</th><th width=50>교양</th><th width=50>합계</th><th width=50>평균</th><th width=50>석차</th></tr>"
+
+            if (localStorage.length > 0) {
+                var arr = new Array();
+                for (N = 0; N < localStorage.length; N++) {
+                    arr[N] = localStorage.getItem(localStorage.key(N)) + "," + localStorage.key(N);
+                }
+            }
+            var sortedarr = arr.sort();
+
+            for (N = 0; N < arr.length; N++) {
+                str += "<tr>";
+                str += "<td align=center>" + arr[N].split(',')[5] + "</td>";
+                str += "<td align=center bgcolor=Yellow>" + arr[N].split(',')[0] + "</td>";
+                str += "<td align=center>" + arr[N].split(',')[1] + "</td>";
+                str += "<td align=center>" + arr[N].split(',')[2] + "</td>";
+                str += "<td align=center>" + arr[N].split(',')[3] + "</td>";
+                str += "<td align=center>" + arr[N].split(',')[4] + "</td>";
+                str += "<tr>";
+            }
+
+            str += "<tfoot><tr><td colspan=7 align=center>작성자 : 최동혁(2018E7196)</td></tr></tfoot>";
+            str += "</table>";
+
+            result1.innerHTML = "(웹 스토리지) 데이터를 이름순으로 출력하였습니다.<hr>";
+            result2.innerHTML = str;
+        }
+        function listRank() {
+            var str = "<h3 align=center>(웹스토리지) 성적순으로 출력하기</h3>";
+            str += "<table border=1>";
+            str += "<tr><th width=50>학번</th><th width=50 >합계</th><th width=50 align=center>이름</th><th width=50>전공</th><th width=50>교양</th><th width=50>평균</th><th width=50>석차</th></tr>"
+            if (localStorage.length > 0) {
+                var arr = new Array();
+                for (var N = 0; N < localStorage.length; N++) {
+                    var key = localStorage.key(N);
+                    var value = localStorage.getItem(key);
+                    var valueArray = value.split(",");
+                    if (valueArray.length >= 4) {
+                        var fourthValue = valueArray[3];
+                        valueArray.splice(3, 1);
+                        valueArray.unshift(fourthValue);
+                        value = valueArray.join(",");
+                    }
+                    arr.push(value + "," + key);
+                    }
+            }
+            var sortedarr = arr.sort();
+            for (N = 0; N < arr.length; N++) {
+                str += "<tr>";
+                str += "<td align=center>" + arr[N].split(',')[5] + "</td>";
+                str += "<td align=center bgcolor=Yellow>" + arr[N].split(',')[0] + "</td>";
+                str += "<td align=center>" + arr[N].split(',')[1] + "</td>";
+                str += "<td align=center>" + arr[N].split(',')[2] + "</td>";
+                str += "<td align=center>" + arr[N].split(',')[3] + "</td>";
+                str += "<td align=center>" + arr[N].split(',')[4] + "</td>";
+                str += "<tr>";
+            }
+            str += "<tfoot><tr><td colspan=7 align=center>작성자 : 최동혁(2018E7196)</td></tr></tfoot>";
+            str += "</table>";
+
+
+
+            result1.innerHTML = "전체 데이터를 성적순으로 출력하였습니다.<hr>";
+            result2.innerHTML = str;
+        }
+        function listGraph1() {
+            var canvas = document.getElementById("graph");
+            var context = canvas.getContext("2d");
+            if (canvas.width > 0) {
+                canvas.width = 0;
+                canvas.height = 0;
+                result1.innerHTML = "그래프 감추기<hr>";
+            }
+            else {
+                canvas.width = 400;
+                canvas.height = 300;
+                context.clearRect(0, 0, 500, 300);
+                // 컨텍스트 리셋
+                context.beginPath();
+
+                context.font = "30px 'Tahoma'";
+                context.strokeText("성적표(평균) 그래프", 20, 50);
+                context.font = "10px 'Tahoma'";
+
+
+                for (N = 0; N < localStorage.length; N++) {
+                    data = localStorage.getItem(localStorage.key(N))
+                    S = (parseInt(data.split(',')[1]) + parseInt(data.split(',')[2])) / 2;
+                    context.fillText(data.split(',')[0], (N * 50) + 20, 270);  // 이름 출력
+                    context.strokeRect((N * 50) + 20, 250 - S, 30, S); //점수 그래프
+                    context.fillText((S.toFixed(1)).toString(), (N * 50) + 25, 240 - S); // 점수 출력
+                }
+
+                result1.innerHTML = "평균 점수를 그래프로 그렸습니다.<hr>";
+            }
+            result2.innerHTML = "";
+        }
+        function listGraph2() {
+            var canvas = document.getElementById("graph");
+            var context = canvas.getContext("2d");
+            if (canvas.height > 0) {
+                canvas.width = 0;
+                canvas.height = 0;
+                result1.innerHTML = "그래프 감추기<hr>";
+            }
+            else {
+                canvas.width = 400;
+                canvas.height = 300;
+                context.clearRect(0, 0, 400, 300);
+                // 컨텍스트 리셋
+                context.beginPath();
+
+                context.font = "30px 'Tahoma'";
+                context.strokeText("성적표(평균) 그래프", 20, 30);
+                context.font = "10px 'Tahoma'";
+
+
+                for (N = 0; N < localStorage.length; N++) {
+                    data = localStorage.getItem(localStorage.key(N))
+                    S = (parseInt(data.split(',')[1]) + parseInt(data.split(',')[2])) / 2;
+                    context.fillText(data.split(',')[0], 10, (N * 50) + 50);  // 이름 출력
+                    context.strokeRect(50, (N * 50) + 40, S, 30); // 점수 그래프
+                    context.fillText((S.toFixed(1)).toString(), 55 + S, (N * 50) + 65); // 점수 출력
+                }
+
+                result1.innerHTML = "평균 점수를 그래프로 그렸습니다.<hr>";
+            }
+            result2.innerHTML = "";
+        }
+
+        function listGraph3() {
+            var canvas = document.getElementById("graph");
+            var context = canvas.getContext("2d");
+            if (canvas.width > 0) {
+                canvas.width = 0;
+                canvas.height = 0;
+                result1.innerHTML = "그래프 감추기<hr>";
+            }
+            else {
+                canvas.width = 400;
+                canvas.height = 300;
+                context.clearRect(0, 0, 500, 300);
+                // 컨텍스트 리셋
+                context.beginPath();
+
+                context.font = "30px 'Tahoma'";
+                context.strokeText("성적표(평균) 그래프", 20, 50);
+                context.font = "10px 'Tahoma'";
+                
+                context.lineWidth = 2;
+                context.strokeStyle = 'blue';
+
+                for (N = 0; N < localStorage.length; N++) {
+                    data = localStorage.getItem(localStorage.key(N));
+                    S = (parseInt(data.split(',')[1]) + parseInt(data.split(',')[2])) / 2;
+                    context.fillText(data.split(',')[0], (N * 50) + 20, 270);  // 이름 출력
+                    context.beginPath();
+                    context.arc((N * 50) + 35, 250 - S, 3, 0, 2 * Math.PI);
+                    context.fillStyle = 'blue';
+                    context.fill();
+                    context.closePath();
+
+                    if (N > 0) {
+                        context.beginPath();
+                        prev_data = localStorage.getItem(localStorage.key(N - 1));
+                        prev_S = (parseInt(prev_data.split(',')[1]) + parseInt(prev_data.split(',')[2])) / 2;
+                        context.moveTo((N * 50) - 25, 250 - prev_S);
+                        context.lineTo((N * 50) + 35, 250 - S);
+                        context.stroke();
+                        context.closePath();
+                    }
+
+                    context.fillText((S.toFixed(1)).toString(), (N * 50) + 25, 240 - S); // 점수 출력
+                }
+
+                result1.innerHTML = "평균 점수를 그래프로 그렸습니다.<hr>";
+            }
+            result2.innerHTML = "";
+        }
+
+
+        function listGraph4() {
+            var canvas = document.getElementById("graph");
+            var context = canvas.getContext("2d");
+
+            if (canvas.width > 0) {
+                canvas.width = 0;
+                canvas.height = 0;
+                result1.innerHTML = "그래프 감추기<hr>";
+            }
+            else {
+                canvas.width = 400;
+                canvas.height = 300;
+                context.clearRect(0, 0, 500, 300);
+
+                var total = 0;
+                for (N = 0; N < localStorage.length; N++) {
+                    data = localStorage.getItem(localStorage.key(N));
+                    S = (parseInt(data.split(',')[1]) + parseInt(data.split(',')[2])) / 2;
+                    total += S;
+                }
+
+                var startAngle = 0;
+                var centerX = canvas.width / 2;
+                var centerY = canvas.height / 2;
+                var radius = Math.min(canvas.width, canvas.height) / 3;
+
+                for (N = 0; N < localStorage.length; N++) {
+                    data = localStorage.getItem(localStorage.key(N));
+                    const score = (parseInt(data.split(',')[1]) + parseInt(data.split(',')[2])) / 2;
+
+                    var sliceAngle = 2 * Math.PI * score / total;
+                    var endAngle = startAngle + sliceAngle;
+
+                    context.beginPath();
+                    context.moveTo(centerX, centerY);
+                    context.arc(centerX, centerY, radius, startAngle, endAngle);
+                    context.lineTo(centerX, centerY);
+
+                    var color = 'hsl(' + Math.random() * 360 + ', 50%, 50%)';
+                    context.fillStyle = color;
+                    context.fill();
+
+                    // Draw slice label
+                    context.fillStyle = 'black';
+                    context.font = "10px 'Tahoma'";
+                    var labelX = centerX + (radius / 1.5) * Math.cos((startAngle + endAngle) / 2);
+                    var labelY = centerY + (radius / 1.5) * Math.sin((startAngle + endAngle) / 2);
+                    context.fillText(data.split(',')[0], labelX, labelY);
+
+                    startAngle = endAngle;
+                }
+
+                result1.innerHTML = "평균 점수를 원형 그래프로 그렸습니다.<hr>";
+            }
+            result2.innerHTML = "";
+        }
+
+        function listGraph5() {
+            var canvas = document.getElementById("graph");
+            var context = canvas.getContext("2d");
+
+            if (canvas.width > 0) {
+                canvas.width = 0;
+                canvas.height = 0;
+                result1.innerHTML = "그래프 감추기<hr>";
+            }
+            else {
+                canvas.width = 400;
+                canvas.height = 300;
+                context.clearRect(0, 0, 500, 300);
+
+                context.beginPath();
+                context.moveTo(0, canvas.height);
+
+                for (N = 0; N < localStorage.length; N++) {
+                    data = localStorage.getItem(localStorage.key(N));
+                    S = (parseInt(data.split(',')[1]) + parseInt(data.split(',')[2])) / 2;
+                    const x = (N * 50) + 35;
+                    const y = 250 - S;
+
+                    context.lineTo(x, y);
+
+                    context.fillText(data.split(',')[0], x - 15, 270);  // 이름 출력
+                    context.fillText((S.toFixed(1)).toString(), x - 15, y - 10); // 점수 출력
+                }
+
+                context.lineTo(canvas.width, canvas.height);
+                context.closePath();
+
+                context.fillStyle = 'rgba(0, 0, 255, 0.5)';
+                context.fill();
+
+                result1.innerHTML = "평균 점수를 면적 그래프로 그렸습니다.<hr>";
+            }
+            result2.innerHTML = "";
+        }
+
+        function listGraph6() {
+            var canvas = document.getElementById("graph");
+            var context = canvas.getContext("2d");
+
+            if (canvas.width > 0) {
+                canvas.width = 0;
+                canvas.height = 0;
+                result1.innerHTML = "그래프 감추기<hr>";
+            }
+            else {
+                canvas.width = 400;
+                canvas.height = 300;
+                context.clearRect(0, 0, 500, 300);
+                
+                // 데이터 생성
+                let data = [];
+                for (N = 0; N < localStorage.length; N++) {
+                    const score = localStorage.getItem(localStorage.key(N));
+                    const scoreArr = score.split(',');
+                    const student = scoreArr[0];
+                    const x = parseInt(scoreArr[1]);
+                    const y = parseInt(scoreArr[2]);
+                    const r = (x + y) / 8; // 크기를 적절하게 조정
+                    data.push({ name: student, x: x, y: y, r: r });
+                }
+
+                // 버블 그리기
+                for (const point of data) {
+                    const { name, x, y, r } = point;
+                    context.beginPath();
+                    context.arc(x * 2, 300 - y * 2, r, 0, 2 * Math.PI);
+                    context.fillStyle = "rgba(0, 0, 255, 0.5)";
+                    context.fill();
+                    context.fillStyle = "black";
+                    context.fillText(name, x * 2 + r + 3, 300 - y * 2);
+                }
+
+                context.font = "12px Arial";
+                context.fillText("가로축: 점수1 (고정된 간격)", 10, 290);
+                context.fillText("세로축: 점수2 (고정된 간격)", 10, 305);
+                result1.innerHTML = "평균 점수를 버블 그래프로 그렸습니다.<hr>";
+            }
+            result2.innerHTML = "";
+        }
+
+        function listGraph7() {
+            var canvas = document.getElementById("graph");
+            var context = canvas.getContext("2d");
+
+            if (canvas.width > 0) {
+                canvas.width = 0;
+                canvas.height = 0;
+                result1.innerHTML = "그래프 감추기<hr>";
+            }
+            else {
+                canvas.width = 400;
+                canvas.height = 300;
+                context.clearRect(0, 0, 500, 300);
+
+                // 데이터 생성 및 준비
+                let data = [];
+                for (N = 0; N < localStorage.length; N++) {
+                    const scores = localStorage.getItem(localStorage.key(N)).split(',');
+                    data.push({ name: scores[0], scores: scores.slice(1).map(parseFloat) });
+                }
+                const numAxes = data[0].scores.length;
+                const centerX = canvas.width / 2;
+                const centerY = canvas.height / 2;
+                const radius = Math.min(canvas.width, canvas.height) / 3;
+
+                // 축 그리기
+                for (let i = 0; i < numAxes; i++) {
+                    context.beginPath();
+                    context.moveTo(centerX, centerY);
+                    const angle = 2 * Math.PI * i / numAxes;
+                    const endX = centerX + radius * Math.cos(angle);
+                    const endY = centerY + radius * Math.sin(angle);
+                    context.lineTo(endX, endY);
+                    context.stroke();
+                    context.closePath();
+                }
+
+                // 레이더 그래프 그리기
+                data.forEach(student => {
+                    context.beginPath();
+                    student.scores.forEach((score, i) => {
+                        const normalizedScore = score / 100;
+                        const angle = 2 * Math.PI * i / numAxes;
+                        const x = centerX + radius * normalizedScore * Math.cos(angle);
+                        const y = centerY + radius * normalizedScore * Math.sin(angle);
+                        if (i === 0) {
+                            context.moveTo(x, y);
+                        } else {
+                            context.lineTo(x, y);
+                        }
+                    });
+                    context.closePath();
+                    context.strokeStyle = 'hsl(' + Math.random() * 360 + ', 50%, 50%)';
+                    context.stroke();
+                });
+
+                result1.innerHTML = "평균 점수를 레이더 그래프로 그렸습니다.<hr>";
+            }
+            result2.innerHTML = "";
+        }
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>최동혁(2018E7196) - if~else</title>
+</head>
+
+<body>
+    <hr>
+    <h2>if~else 명령어 설명</h2>
+    <hr>
+    "if" 명령어는 조건을 평가하여 그 결과에 따라 다른 동작을 수행하기 위해 사용되는 명령어입니다. 일반적으로 프로그래밍 언어에서 조건문을 구성하는 데에 사용됩니다.<br>
+    "if-else" 명령문은 조건을 평가하고, 조건이 참인 경우와 거짓인 경우에 서로 다른 동작을 수행하기 위해 사용됩니다. 이 명령문은 주로 프로그래밍에서 조건문을 구성하는 데 사용됩니다.<br>
+    <hr>
+    <h3>if 연습</h3>
+    <hr>
+    <script>
+        var num = parseInt(prompt("숫자를 입력하세요:"));
+      
+        if (num > 0) {
+          document.write("입력한 숫자는 양수입니다.");
+        } else if (num < 0) {
+          document.write("입력한 숫자는 음수입니다.");
+        } else {
+          document.write("입력한 숫자는 0입니다.");
+        }
+      </script><br>
+    <script>
+        var num = parseInt(prompt("숫자를 입력하세요:"));
+      
+        if (num > 0) {
+          document.write("입력한 숫자는 양수입니다.");
+        } else {
+          if (num < 0) {
+            document.write("입력한 숫자는 음수입니다.");
+          } else {
+            document.write("입력한 숫자는 0입니다.");
+          }
+        }
+      </script>
+      <br>
+    <hr>
+</body>
+
+</html>

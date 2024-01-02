@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>최동혁(2018E7196) - confirm</title>
+</head>
+
+<body>
+    <hr>
+    <h2>confirm 명령어 설명</h2>
+    <hr>
+    confirm 명령어는 일반적으로 어떤 동작이나 작업을 수행하기 전에 사용자로부터 확인이나 승인을 받기 위해 사용되는 명령어입니다. 이 명령어는 다양한 컴퓨터 시스템과 소프트웨어에서 사용될 수 있습니다.
+    <hr>
+    <h3>confirm 연습</h3>
+    <hr>    
+    <button onclick="myFunction()">클릭</button>
+
+    <script>
+    function myFunction() {
+    var result = confirm("이 작업을 수행하시겠습니까?");
+    if (result == true) {
+        // 확인 버튼을 클릭한 경우에만 이 부분의 코드가 실행됩니다.
+        alert("작업이 수행되었습니다!");
+        // 여기에 원하는 동작을 추가할 수 있습니다.
+    } else {
+        // 취소 버튼을 클릭한 경우에는 이 부분의 코드가 실행됩니다.
+        alert("작업이 취소되었습니다.");
+    }
+    }
+    </script>
+    <hr>
+    <h3>confirm 반환값</h3>
+    <hr>
+    <button onclick="myFunction2()">클릭</button>
+
+    <script>
+    function myFunction2() {
+    var result = confirm("이 작업을 수행하시겠습니까?");
+    if (result == true) {
+        alert("사용자가 확인을 선택했습니다.");
+    } else {
+        alert("사용자가 취소를 선택했습니다.");
+    }
+    document.getElementById("result").innerHTML = "사용자의 선택: " + result;
+    }
+    </script>
+
+    <p id="result"></p>
+    <hr>
+</body>
+
+</html>

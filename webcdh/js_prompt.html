@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>최동혁(2018E7196) - prompt</title>
+</head>
+
+<body>
+    <hr>
+    <h2>prompt 명령어 설명</h2>
+    <hr>
+    "prompt" 명령어는 일반적으로 사용자로부터 값을 입력받기 위해 사용되는 명령어입니다. 이 명령어는 주로 웹 페이지나 JavaScript 코드에서 사용됩니다.
+    <hr>
+    <h3>prompt 연습</h3>
+    <hr>
+    <script>
+        var name = prompt("이름을 입력하세요:");
+        if (name != null && name != "") {
+          alert("안녕하세요, " + name + "님!");
+        } else {
+          alert("이름이 입력되지 않았습니다.");
+        }
+    </script>
+    <hr>
+    <h3>prompt 명령어 수행 후 반환값</h3>
+    <hr>
+    <button onclick="myFunction3()">클릭</button>
+
+    <script>
+    function myFunction3() {
+    var name = prompt("이름을 입력하세요:");
+    if (name != null && name != "") {
+        alert("안녕하세요, " + name + "님!");
+    } else {
+        alert("이름이 입력되지 않았습니다.");
+    }
+    document.getElementById("result").innerHTML = "사용자의 입력: " + name;
+    }
+    </script>
+
+    <p id="result"></p>
+    <hr>
+</body>
+
+</html>
+​

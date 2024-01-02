@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>텍스트 그리기</title>
+</head>
+
+<body>
+    <h3>텍스트 그리기</h3>
+    <hr>
+    <canvas id="myCanvas" style="background-color:beige" width="500" height="400"></canvas>
+    <script>
+        var canvas = document.getElementById("myCanvas");
+        var context = canvas.getContext("2d");
+
+        context.font = "italic 35px forte";
+        context.strokeStyle = "red";
+        context.lineWidth = 2;
+        context.textAlign = "left";
+        context.strokeText("gur656@Naver.Com", 10, 50);
+
+        // 텍스트 채워 그리기
+        context.font = "35px forte";
+        context.fillStyle = "blue";
+        context.textAlign = "right";
+        context.fillText("2018E7196", 200, 330);
+
+    //ㅊ
+    context.beginPath(); 
+    context.lineWidth = 15; 
+    context.strokeStyle = "green";
+
+    context.stroke();
+
+    context.moveTo(60, 100);
+
+    context.lineTo(160, 100);
+
+    context.moveTo(110, 80);
+
+    context.lineTo(110, 100);
+
+    context.lineTo(60, 130);
+
+    context.moveTo(110,100 );
+
+    context.lineTo(150,130);
+
+
+
+    context.stroke();
+
+    //ㅚ
+    context.beginPath(); 
+    context.lineWidth = 15; 
+    context.strokeStyle = "green";
+    context.moveTo(110, 100);
+    context.lineTo(110, 160);
+    context.moveTo(60, 160);
+    context.lineTo(160, 160);
+    context.moveTo(180, 90);
+    context.lineTo(180, 190);
+    context.stroke();
+
+    //동
+    context.beginPath(); 
+    context.lineWidth = 15; 
+    context.strokeStyle = "green";
+
+    context.stroke();
+
+    context.moveTo(200, 100);
+
+    context.lineTo(300, 100);
+
+    context.moveTo(200, 100);
+
+    context.lineTo(200, 150);
+
+    context.moveTo(200, 150);
+
+    context.lineTo(300, 150);
+
+    context.moveTo(250, 150);
+
+    context.lineTo(250, 200);
+
+    context.moveTo(200, 200);
+
+    context.lineTo(300, 200);
+
+    context.stroke();
+
+    context.beginPath();
+
+    context.arc(250, 250, 30, 0, 1.8*Math.PI, false);
+
+    context.lineWidth = 20; // 선 굵기 20픽셀
+
+    context.strokeStyle = "violet"; // 선 색
+
+    context.stroke();
+
+    //혁
+    context.beginPath(); 
+    context.lineWidth = 15; 
+    context.strokeStyle = "green";
+
+    
+
+    context.moveTo(350, 100);
+
+    context.lineTo(450, 100);
+
+    context.moveTo(400, 80);
+
+    context.lineTo(400, 100);
+
+    context.stroke();
+
+    context.beginPath();
+
+context.arc(400, 150, 30, 0, 1.8*Math.PI, false);
+
+context.lineWidth = 20; // 선 굵기 20픽셀
+
+context.strokeStyle = "violet"; // 선 색
+
+
+
+context.stroke();
+context.beginPath(); 
+    context.lineWidth = 15; 
+    context.strokeStyle = "green";
+
+    
+
+    context.moveTo(450, 100);
+
+    context.lineTo(500, 100);
+
+    context.moveTo(450, 130);
+
+    context.lineTo(500, 130);
+
+    context.moveTo(500, 80);
+
+    context.lineTo(500, 160);
+
+    context.moveTo(350, 200);
+
+    context.lineTo(480, 200);
+
+    context.moveTo(470, 200);
+
+    context.lineTo(470, 280);
+
+    context.stroke();
+
+    context.beginPath(); 
+
+    
+
+context.lineWidth = 10; // 선 굵기 20픽셀
+
+context.strokeStyle = "purple";
+
+context.moveTo(350, 300);
+
+context.lineTo(450, 300);
+
+context.moveTo(450, 300);
+
+context.lineTo(400, 350);
+
+context.moveTo(400, 350);
+
+context.lineTo(350, 300);
+
+context.moveTo(400, 250);
+
+context.lineTo(370, 350);
+
+context.lineTo(430, 350);
+
+context.lineTo(400, 250);
+
+context.stroke();
+    </script>
+</body>
+
+</html>
